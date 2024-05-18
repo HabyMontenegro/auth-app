@@ -1,24 +1,35 @@
-import logo from './logo.svg';
+// src/App.js
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Login from './Login';
+import Inicio from './Inicio';
+import Pag1 from './Pag1';
+import Pag2 from './Pag2';
+import Pag3 from './Pag3';
+import NavBar from './NavBar';
 import './App.css';
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        {isLoggedIn ? (
+          <>
+            <NavBar />
+            <Routes>
+              <Route path="/" element={<Inicio />} />
+              <Route path="/pag1" element={<Pag1 />} />
+              <Route path="/pag2" element={<Pag2 />} />
+              <Route path="/pag3" element={<Pag3 />} />
+            </Routes>
+          </>
+        ) : (
+          <Login onLogin={setIsLoggedIn} />
+        )}
+      </div>
+    </Router>
   );
 }
 
